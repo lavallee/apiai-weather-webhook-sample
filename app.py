@@ -52,10 +52,12 @@ def processRequest(req):
 
 
 def makeYqlQuery(req):
+    print("in makeYqlQuery")
     result = req.get("result")
     parameters = result.get("parameters")
     #city = parameters.get("geo-city")
-    city = parameters.get("address.original")
+    address = parameters.get("address")
+    city = address.get("city")
     if city is None:
         return None
 
