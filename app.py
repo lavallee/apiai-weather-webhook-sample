@@ -18,6 +18,10 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 
+@app.route('/')
+def hello():
+    return json.dumps(json.loads(TEMPLATE))
+
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -104,6 +108,67 @@ def makeWebhookResult(data):
         # "contextOut": [],
         "source": "apiai-weather-webhook-sample"
     }
+
+
+TEMPLATE = """
+    {
+   "status" : {
+      "code" : 200,
+      "errorType" : "success"
+   },
+   "lang" : "en",
+   "id" : "955edd22-2610-4c87-a091-16d66a39b873",
+   "timestamp" : "2017-06-02T21:43:12.974Z",
+   "sessionId" : "4a565d68-f6a7-e798-cdcd-0cb44accb6a6",
+   "result" : {
+      "source" : "agent",
+      "parameters" : {
+         "address" : {
+            "city" : "New York"
+         },
+         "unit" : "",
+         "date-time" : ""
+      },
+      "action" : "weather",
+      "speech" : "",
+      "contexts" : [
+         {
+            "lifespan" : 2,
+            "name" : "weather",
+            "parameters" : {
+               "date-time" : "",
+               "address.original" : "new york",
+               "unit" : "",
+               "date-time.original" : "",
+               "address" : {
+                  "city" : "New York",
+                  "city.original" : "new york"
+               },
+               "unit.original" : ""
+            }
+         }
+      ],
+      "metadata" : {
+         "intentId" : "f1b75ecb-a35f-4a26-88fb-5a8049b92b02",
+         "webhookUsed" : "true",
+         "webhookForSlotFillingUsed" : "false",
+         "intentName" : "weather"
+      },
+      "score" : 1,
+      "actionIncomplete" : false,
+      "fulfillment" : {
+         "speech" : "",
+         "messages" : [
+            {
+               "type" : 0,
+               "speech" : ""
+            }
+         ]
+      },
+      "resolvedQuery" : "what's the weather in new york?"
+   }
+}
+"""
 
 
 if __name__ == '__main__':
